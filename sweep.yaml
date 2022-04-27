@@ -1,0 +1,30 @@
+program: mainDet.py
+project: martinNet
+name: first_sweep_ice
+method: bayes
+metric:
+  name: val_loss
+  goal: minimize
+parameters:
+  learning_rate:
+    min: 0.001
+    max: 0.1
+  epochs:
+    distribution: int_uniform
+    min: 1
+    max: 4
+  batch_size:
+    distribution: categorical
+    values: [1, 2, 4, 10]
+  n_layers:
+    distribution: categorical
+    values: [1, 2, 3, 4]
+  start_neurons_number:
+    distribution: categorical
+    values: [16, 32, 64]
+command:
+  - ${env}
+  - python
+  - ${program}
+  - "--wandb"
+  - ${args}
